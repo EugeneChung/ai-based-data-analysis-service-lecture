@@ -4,7 +4,7 @@
 
 - 실행+분석+그래프까지 하는 agentic 버전: `deli-simple-text2sql-system-prompt.md` (deli-db MCP 연결)
 - 엔진 가정: **MySQL 8 / InnoDB (OLTP)** — Athena/Trino ❌
-- 스키마 DDL: `../deli-mcp/schema.sql`
+- 스키마 DDL: `../deli-db-mcp/schema.sql`
 - 예시 질문: 질문 1(restaurants 단일 집계) / 질문 2(JOIN + 시간 필터) — 아래 "사용 예" 참고
 
 ## 프롬프트 본문
@@ -199,5 +199,5 @@ Do not output multiple alternative queries. Do not explain SQL syntax.
 ## 관련
 
 - agentic(실행+분석) 버전: `deli-simple-text2sql-system-prompt.md`
-- 스키마 DDL + 인덱스: `../deli-mcp/schema.sql`
-- MCP 서버 구현: `../deli-mcp/server.py`
+- 스키마 DDL + 인덱스: `../deli-db-mcp/schema.sql`
+- MCP 서버 구현: `../deli-db-mcp/server.py`
