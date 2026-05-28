@@ -1,0 +1,12 @@
+# secrets / local env
+.env
+
+# disposable local MySQL instance (datadir, TLS keys, logs)
+deli-mcp/.mysql/
+
+# python
+__pycache__/
+*.pyc
+
+# logs
+*.log
