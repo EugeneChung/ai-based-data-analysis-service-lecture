@@ -8,14 +8,14 @@
 |---|---|
 | `prompts/deli-simple-text2sql-sql-only-system-prompt.md` | SQL 생성까지만 하는 시스템 프롬프트 |
 | `prompts/deli-simple-text2sql-system-prompt.md` | 실행+분석+그래프까지 하는 agentic 버전 (deli-db MCP 연결) |
-| `deli-mcp/` | Deli DB를 조회하는 MCP 서버 (FastMCP, SELECT 전용) + 로컬 MySQL·시드 스크립트 |
+| `deli-db-mcp/` | Deli DB를 조회하는 MCP 서버 (FastMCP, SELECT 전용) + 로컬 MySQL·시드 스크립트 |
 
 ## 두 가지 사용 방식
 
 1. **수동 (SQL only)** — 프롬프트를 Claude(앱 / Project Instructions)에 넣고 질문 → SQL 생성. 사람이 직접 실행.
 2. **자동 (agentic + MCP)** — agentic 프롬프트 + `deli-db` MCP connector → Claude가 `run_select` 로 쿼리를 직접 실행하고 결과를 분석·시각화.
 
-## MCP 서버 (`deli-mcp/`)
+## MCP 서버 (`deli-db-mcp/`)
 
 `fastmcp` + `PyMySQL` 로 만든 read-only MySQL 조회 서버. 도구 4개를 노출한다.
 

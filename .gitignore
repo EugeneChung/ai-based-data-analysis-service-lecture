@@ -2,7 +2,7 @@
 .env
 
 # disposable local MySQL instance (datadir, TLS keys, logs)
-deli-mcp/.mysql/
+deli-db-mcp/.mysql/
 
 # python
 __pycache__/

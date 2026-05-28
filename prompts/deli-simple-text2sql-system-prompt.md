@@ -3,9 +3,9 @@
 강의용 Text-to-SQL 데모의 **agentic 버전**. SQL 생성에서 멈추지 않고, 연결된 `deli-db` MCP로 쿼리를 **실행** → 결과를 읽고 → **분석 + 그래프**까지 내놓는다. (taeho-da-bot 이 SQL→Athena 실행→분석/시각화까지 하던 흐름의 강의용 축소판.)
 
 - SQL 생성까지만 하는 버전: `deli-simple-text2sql-sql-only-system-prompt.md`
-- 실행 백엔드: `deli-db` MCP (`../deli-mcp/server.py`, FastMCP, SELECT 전용). MySQL 8 / InnoDB, 시뮬레이션 데이터 적재됨
+- 실행 백엔드: `deli-db` MCP (`../deli-db-mcp/server.py`, FastMCP, SELECT 전용). MySQL 8 / InnoDB, 시뮬레이션 데이터 적재됨
 - 엔진 가정: **MySQL 8 / InnoDB (OLTP)** — Athena/Trino ❌
-- 스키마 DDL: `../deli-mcp/schema.sql`
+- 스키마 DDL: `../deli-db-mcp/schema.sql`
 - 예시 질문: 질문 1(restaurants 단일 집계) / 질문 2(JOIN + 시간 필터) — 아래 "사용 예" 참고
 
 ## 프롬프트 본문
@@ -245,8 +245,8 @@ Respond in Korean, in this order:
 
 ## 연결 방법 (deli-db MCP)
 
-1. `../deli-mcp/local-mysql.sh start` — 시뮬레이션 데이터가 든 MySQL 기동
-2. `../deli-mcp/serve-http.sh` — MCP HTTP 서버 (`http://127.0.0.1:8000/mcp`)
+1. `../deli-db-mcp/local-mysql.sh start` — 시뮬레이션 데이터가 든 MySQL 기동
+2. `../deli-db-mcp/serve-http.sh` — MCP HTTP 서버 (`http://127.0.0.1:8000/mcp`)
 3. 공개 URL 필요 시(웹/원격): `cloudflared tunnel --url http://127.0.0.1:8000` → `https://….trycloudflare.com/mcp`
 4. Claude "Add custom connector" → Name `deli-db`, URL 위 주소(끝에 `/mcp`)
 
@@ -255,5 +255,5 @@ Respond in Korean, in this order:
 ## 관련
 
 - SQL only 버전: `deli-simple-text2sql-sql-only-system-prompt.md`
-- 스키마 DDL + 인덱스: `../deli-mcp/schema.sql`
-- MCP 서버 구현: `../deli-mcp/server.py`
+- 스키마 DDL + 인덱스: `../deli-db-mcp/schema.sql`
+- MCP 서버 구현: `../deli-db-mcp/server.py`
