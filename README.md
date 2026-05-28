@@ -28,9 +28,9 @@
 
 `run_select` 는 방어적으로 설계됨: `SELECT`/`WITH` 외 거부(쓰기·DDL·다중문 차단), 읽기 전용 트랜잭션, 실행시간(5초)·행 수(기본 200, 최대 1000) 상한.
 
-### 로컬 실행
+### 로컬 실행 (macOS 기준)
 
-요구: Python 3, Homebrew `mysql@8.0`.
+요구: macOS, Python 3, Homebrew `mysql@8.0`. (`local-mysql.sh` 는 Apple Silicon Homebrew 경로 `/opt/homebrew/opt/mysql@8.0` 를 가정 — Intel Mac·Linux는 경로/설치 방식 조정 필요)
 
 ```bash
 cd deli-mcp
