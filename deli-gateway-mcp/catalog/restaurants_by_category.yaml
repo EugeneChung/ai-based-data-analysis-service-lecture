@@ -1,0 +1,7 @@
+name: restaurants_by_category
+description: "카테고리별 영업 중 식당 수 (region 접두어로 지역 필터)"
+engine: mysql
+parameters:
+  - { name: region, type: string, required: false }
+defaults:   { limit: 100 }
+guardrails: { max_rows: 100, timeout_seconds: 10 }
