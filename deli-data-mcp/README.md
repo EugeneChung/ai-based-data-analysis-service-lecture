@@ -1,4 +1,4 @@
-# deli-gateway-mcp
+# deli-data-mcp
 
 딜리(Deli) 예제용 **data-gateway MCP 서버**. 사내
 `teamdable/data-gateway-mcp` 를 강의 크기로 줄인 공개 예시다.
@@ -77,7 +77,7 @@ cd ../deli-db-mcp
 그다음 게이트웨이를 띄운다.
 
 ```bash
-cd ../deli-gateway-mcp
+cd ../deli-data-mcp
 python3 -m pip install -r requirements.txt
 
 # stdio (Claude Desktop 설정 파일 경로)
