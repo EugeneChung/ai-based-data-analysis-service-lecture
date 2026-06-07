@@ -1,0 +1,8 @@
+# Global defaults and guardrails. A per-tool catalog/<name>.yaml can
+# override any of these for its own tool.
+defaults:
+  date_range_days: 30
+  limit: 1000
+guardrails:
+  max_rows: 100000
+  timeout_seconds: 30

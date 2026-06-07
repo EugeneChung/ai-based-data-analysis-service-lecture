@@ -1,0 +1,9 @@
+name: restaurant_sales
+description: "식당별 일자별 주문 수·매출 집계 (완료 주문 기준)"
+engine: mysql
+parameters:
+  - { name: restaurant_id, type: integer, required: true }
+  - { name: date_from,     type: date,    required: false }
+  - { name: date_to,       type: date,    required: false }
+defaults:   { date_range_days: 7, limit: 5000 }
+guardrails: { max_rows: 50000, timeout_seconds: 30 }
