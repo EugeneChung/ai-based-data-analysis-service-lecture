@@ -7,6 +7,7 @@ deli-db-mcp/.mysql/
 # python
 __pycache__/
 *.pyc
+venv/
 
 # logs
 *.log
