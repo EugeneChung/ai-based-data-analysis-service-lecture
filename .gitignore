@@ -11,3 +11,6 @@ venv/
 
 # logs
 *.log
+
+# generated chart artifacts (simulate.py)
+deli-da-bot/out/
