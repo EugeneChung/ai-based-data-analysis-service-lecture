@@ -1,4 +1,4 @@
-"""Deli data-gateway — declarative, fixed-SQL MCP server (FastMCP).
+"""deli-data — declarative, fixed-SQL MCP server (FastMCP).
 
 The lecture-sized sibling of the internal teamdable/data-gateway-mcp.
 Instead of letting the model write SQL (that is deli-db-mcp's job), this
@@ -6,12 +6,12 @@ server exposes a *catalog* of reviewed, parameterised queries as MCP
 tools. Each catalog/<name>.yaml + queries/<name>.sql pair becomes one
 tool whose parameters, defaults, and guardrails are fixed in the files.
 
-One agent can use both connectors at once: deli-gateway for the
+One agent can use both connectors at once: deli-data for the
 repeating, trusted questions; deli-db for free exploration.
 
 Run (stdio):  python3 server.py
 HTTP:         DELI_MCP_TRANSPORT=http python3 server.py   # default :8001
-Register:     claude mcp add deli-gateway -- python3 /abs/path/to/server.py
+Register:     claude mcp add deli-data -- python3 /abs/path/to/server.py
 """
 
 from __future__ import annotations
@@ -26,7 +26,7 @@ import yaml
 from fastmcp import FastMCP
 
 from catalog import CatalogLoader
-from service import DataGatewayService
+from service import DeliDataService
 
 _HERE = Path(__file__).parent
 
@@ -34,7 +34,7 @@ _HERE = Path(__file__).parent
 _PY_TYPE = {"integer": int, "date": str, "string": str, "number": float}
 
 
-def _make_handler(service: DataGatewayService, spec):
+def _make_handler(service: DeliDataService, spec):
     """Build a tool function whose signature matches the catalog params,
     so FastMCP advertises the right typed arguments to the model.
 
@@ -69,8 +69,8 @@ def _make_handler(service: DataGatewayService, spec):
     return handler
 
 
-def create_server(service: DataGatewayService, tool_specs: dict) -> FastMCP:
-    mcp = FastMCP(name="deli-gateway")
+def create_server(service: DeliDataService, tool_specs: dict) -> FastMCP:
+    mcp = FastMCP(name="deli-data-mcp")
     for name in sorted(tool_specs):
         spec = tool_specs[name]
         handler = _make_handler(service, spec)
@@ -81,7 +81,7 @@ def create_server(service: DataGatewayService, tool_specs: dict) -> FastMCP:
 def build() -> FastMCP:
     config = yaml.safe_load((_HERE / "config.yaml").read_text(encoding="utf-8")) or {}
     tool_specs = CatalogLoader(_HERE / "catalog", _HERE / "queries").load()
-    service = DataGatewayService(
+    service = DeliDataService(
         tool_specs,
         config.get("defaults", {}),
         config.get("guardrails", {}),

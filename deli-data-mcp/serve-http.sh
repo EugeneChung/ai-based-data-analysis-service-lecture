@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Serve the Deli data-gateway MCP server over HTTP so it can be added via
+# Serve the deli-data MCP server over HTTP so it can be added via
 # Claude's "Add custom connector" dialog (Remote MCP server URL).
 #
 #   ./serve-http.sh                 # http://127.0.0.1:8001/mcp
@@ -17,5 +17,5 @@ export DELI_MCP_HOST="${DELI_MCP_HOST:-127.0.0.1}"
 export DELI_MCP_PORT="${DELI_MCP_PORT:-8001}"
 export DELI_MCP_PATH="${DELI_MCP_PATH:-/mcp}"
 
-echo "deli-gateway MCP (http) -> http://${DELI_MCP_HOST}:${DELI_MCP_PORT}${DELI_MCP_PATH}"
+echo "deli-data MCP (http) -> http://${DELI_MCP_HOST}:${DELI_MCP_PORT}${DELI_MCP_PATH}"
 exec python3 server.py
