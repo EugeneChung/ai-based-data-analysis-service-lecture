@@ -28,6 +28,9 @@ logger = logging.getLogger("deli-da-bot")
 BOT_TOKEN = os.environ["SLACK_BOT_TOKEN"]
 APP_TOKEN = os.environ["SLACK_APP_TOKEN"]
 
+# [코너 케이스] reply-all 화이트리스트 — message.channels 이벤트는 봇이 들어간
+# 모든 채널에서 발생한다. 여기 등록된 채널(쉼표 구분 채널 ID)만 멘션 없이 응답하고,
+# 그 외 채널의 일반 잡담에는 끼어들지 않는다.
 REPLY_ALL_CHANNEL_IDS: set[str] = {
     c.strip()
     for c in os.environ.get("REPLY_ALL_CHANNEL_IDS", "").split(",")
@@ -74,6 +77,9 @@ async def handle_app_mention(event: dict[str, Any], say: Any, client: Any) -> No
 
 @app.event({"type": "message", "channel_type": "im"})
 async def handle_dm(event: dict[str, Any], say: Any) -> None:
+    # [코너 케이스] 루프 차단 — 봇 메시지(bot_id, 자기 답변 포함)와
+    # 시스템 메시지(subtype: 입장/수정/삭제 등)는 무시.
+    # 자기 답변에 다시 답하는 무한 루프를 여기서 끊는다.
     if event.get("subtype") or event.get("bot_id"):
         return
     user = event.get("user")
@@ -92,13 +98,18 @@ async def handle_dm(event: dict[str, Any], say: Any) -> None:
 
 @app.event({"type": "message", "channel_type": "channel"})
 async def handle_channel_message(event: dict[str, Any], say: Any, client: Any) -> None:
+    # [코너 케이스] 루프 차단 — handle_dm 과 동일. 봇·시스템 메시지 무시.
     if event.get("subtype") or event.get("bot_id"):
         return
     channel = event.get("channel")
+    # [코너 케이스] reply-all 화이트리스트 — 등록 안 된 채널의 메시지는 무시.
     if channel not in REPLY_ALL_CHANNEL_IDS:
         return
     bot_user_id = await _resolve_bot_user_id(client)
     text = event.get("text", "")
+    # [코너 케이스] 멘션 중복 방지 — @멘션 한 건에 app_mention 과 message
+    # 이벤트가 둘 다 발생한다. 멘션이 들어 있으면 app_mention 핸들러가 답하므로
+    # message 쪽은 skip. (대안: 같은 event_ts 를 기억해 두는 dedup)
     if f"<@{bot_user_id}>" in text:
         return
     user = event.get("user")
