@@ -101,7 +101,11 @@ python bot.py
 | (DM 창에서) `테스트` | 봇이 DM 에 `DM received` 카드 |
 | (REPLY_ALL_CHANNEL_IDS 설정 시) 그 채널에 `반응 테스트` | 봇이 스레드에 `reply-all received` 카드 |
 
-봇 자기 메시지에는 반응하지 않도록 가드 있음 (`bot_id` 체크 + 멘션 토큰 중복 방지).
+### 코너 케이스 처리 (자세한 설명은 `bot.py` 주석)
+
+- **루프 차단** — `bot_id`(봇 메시지)·`subtype`(시스템 메시지) 무시. 자기 답변에 다시 답하는 무한 루프 방지
+- **멘션 중복 방지** — @멘션 한 건에 `app_mention`·`message` 이벤트가 둘 다 발생 → `message` 쪽에서 멘션 포함 메시지 skip
+- **reply-all 화이트리스트** — `REPLY_ALL_CHANNEL_IDS` 에 등록한 채널만 멘션 없이 응답, 그 외 채널 잡담 무시
 
 ---
 
