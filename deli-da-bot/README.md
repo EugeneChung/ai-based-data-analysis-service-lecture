@@ -125,4 +125,4 @@ python bot.py
 - 봇 텍스트에 LLM(Claude Agent SDK) 답변 붙이기 → taeho/myungsub-da-bot 방향
 - 스레드 컨텍스트 가져오기 (`conversations_replies`) + session 영속화
 - 차트 생성 + `files_upload_v2` 업로드
-- `data-gateway-mcp` 호출
+- `deli-data-mcp` 호출

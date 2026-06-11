@@ -1,6 +1,6 @@
 # deli-data-mcp
 
-딜리(Deli) 예제용 **data-gateway MCP 서버**. 사내
+딜리(Deli) 예제용 **고정 SQL MCP 서버**. 사내
 `teamdable/data-gateway-mcp` 를 강의 크기로 줄인 공개 예시다.
 
 옆에 있는 [`deli-db-mcp`](../deli-db-mcp) 가 *모델이 직접 SQL 을 쓰는*
@@ -10,7 +10,7 @@
 재사용한다.
 
 한 에이전트가 두 커넥터를 같이 쓴다 — 반복되는 신뢰 질문은
-`deli-gateway`, 처음 보는 탐색 질문은 `deli-db`.
+`deli-data`, 처음 보는 탐색 질문은 `deli-db`.
 
 ## 핵심 아이디어: Tool = 파일 두 개
 
@@ -74,7 +74,7 @@ cd ../deli-db-mcp
 ./local-mysql.sh start      # 일회용 MySQL + 시드 데이터
 ```
 
-그다음 게이트웨이를 띄운다.
+그다음 deli-data 서버를 띄운다.
 
 ```bash
 cd ../deli-data-mcp
@@ -91,7 +91,7 @@ python3 server.py
 커넥터 둘로 붙일 수 있다.
 
 ```bash
-claude mcp add deli-gateway -- python3 "$(pwd)/server.py"
+claude mcp add deli-data -- python3 "$(pwd)/server.py"
 ```
 
 ## 파일

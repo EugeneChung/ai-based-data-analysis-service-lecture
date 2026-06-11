@@ -1,6 +1,6 @@
-"""DataGatewayService — the validate -> build -> render -> execute path.
+"""DeliDataService — the validate -> build -> render -> execute path.
 
-This is the heart of the gateway. For one tool call it:
+This is the heart of deli-data-mcp. For one tool call it:
 
     (1) validate   caller params against the tool's declared parameters
     (2) build      merge defaults/guardrails, compute date window + limit
@@ -20,7 +20,7 @@ from query_builder import build_context, render_sql
 from validator import validate
 
 
-class DataGatewayService:
+class DeliDataService:
     def __init__(self, tool_specs: dict, global_defaults: dict, global_guardrails: dict) -> None:
         self.tool_specs = tool_specs
         self.global_defaults = global_defaults
@@ -61,7 +61,7 @@ class DataGatewayService:
     def _audit(tool_name: str, params: dict, result) -> None:
         # Stand-in for a real execution log (who ran what, how much it scanned).
         print(
-            f"[gateway] tool={tool_name} params={params} "
+            f"[deli-data] tool={tool_name} params={params} "
             f"rows={result.row_count} truncated={result.truncated}",
             file=sys.stderr,
         )

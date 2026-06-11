@@ -1,6 +1,6 @@
 """Shared MySQL connection config — same contract as deli-db-mcp/db.py.
 
-Reads connection settings from environment variables so the gateway and
+Reads connection settings from environment variables so deli-data-mcp and
 deli-db-mcp can point at the same database. Defaults target a local
 Homebrew MySQL with the default root user and no password.
 """
