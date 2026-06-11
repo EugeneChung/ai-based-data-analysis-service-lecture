@@ -8,6 +8,7 @@
 |---|---|
 | `prompts/deli-simple-text2sql-sql-only-system-prompt.md` | SQL 생성까지만 하는 시스템 프롬프트 |
 | `prompts/deli-simple-text2sql-system-prompt.md` | 실행+분석+그래프까지 하는 agentic 버전 (deli-db MCP 연결) |
+| `prompts/deli-da-bot-system-prompt.md` | Slack 봇(deli-da-bot)용 추가분 — Slack mrkdwn 출력·도구 매핑·분석 가이드 |
 | `deli-db-mcp/` | Deli DB를 조회하는 MCP 서버 (FastMCP, SELECT 전용) + 로컬 MySQL·시드 스크립트 |
 
 ## 두 가지 사용 방식
